@@ -32,4 +32,4 @@ Tài khoản AdminRestaurant: - HITC -- 123456
 
 Tài khoản User để booking: - PhucTran -- 123456
 
-Lưu ý: Mât khẩu mà không đúng thì đăng nhập lại với mật khẩu là 1234567 nhé.
+Lưu ý: Mật khẩu mà không đúng thì đăng nhập lại với mật khẩu là 1234567 nhé.
