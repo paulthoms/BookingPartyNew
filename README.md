@@ -5,7 +5,7 @@ _ Clone source code về:
 
 B1: vào thư mục frontend và chạy lệnh npm install để cài đặt các thư viện cho frontend
 
-B2: import database vào Mysql Workbench 
+B2: import database vào Mysql Workbench (database được lấy trong thư mục Database ngay trong source code)
 
 B3: Đổi mật khẩu phần connect database ở dòng 7 trong file '/BookingPartyNew/routes/index.js' cho backend để kết nối database
 
