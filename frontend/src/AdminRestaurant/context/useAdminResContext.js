@@ -78,6 +78,12 @@ const useAdminResContext = () => {
         })
     }
 
+    function updateLoadingConfirm(data) {
+        dispatch((draft) => {
+            draft.loadingConfirm = data;
+        });
+    }
+
     return {
         ...state,
         updateNavigationConfig,
@@ -87,7 +93,8 @@ const useAdminResContext = () => {
         updateAllBooking,
         updateMapPicker,
         updateDataEditDish,
-        updateDataEditProfile
+        updateDataEditProfile,
+        updateLoadingConfirm
     };
 };
 

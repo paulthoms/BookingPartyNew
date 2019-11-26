@@ -2,7 +2,7 @@
 function UserDAO(MysqlDB) {
 
     this.getUserModel = function (callback) {
-        var sql = "select * from Users";
+        var sql = "select * from Users where ID>1";
         MysqlDB.query(sql, function (error, results) {
             if (error) {
                 callback({

@@ -43,6 +43,8 @@ export default function FormDialog() {
         bodyFormData.set("Name", userName);
         bodyFormData.set("Password", password);
 
+        
+
         userLogin("/login", bodyFormData, function (res) {
             if (res.status !== "error") {
                 localStorage.clear();

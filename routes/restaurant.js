@@ -54,8 +54,6 @@ function Restaurant(MysqlDB, jwt, CryptoJS) {
 
     this.updateRestaurant = function (req, res, next) {
 
-        console.log("hello");
-
         const file = req.files.Image;
         const tmpdir = __dirname.substring(0, __dirname.length - 7);
         console.log("this is file", file);
@@ -64,8 +62,11 @@ function Restaurant(MysqlDB, jwt, CryptoJS) {
         console.log(nameImg);
         file.mv(`${tmpdir}/frontend/public/uploads/${nameImg}`, (err) => {
             if (err) {
-                console.log(err);
-                return res.status(500).send(err);
+                res.json({
+                    status: "error",
+                    code: "500",
+                    error: err
+                });
             }
             else {
                 var restaurant = {

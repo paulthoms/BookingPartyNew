@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { getAPI, putAPI } from '../../Normal/shared/APICaller';
 import { useAdminResContext } from '../context/useAdminResContext';
 import MapPickPosition from '../MapPickPosition';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -38,18 +39,25 @@ export default function EditRestaurantPage() {
 
     function handleSubmitChangeRestaurantInfo() {
 
-        console.log(mapPicker[0].pos.lat + "," + mapPicker[0].pos.lng);
+        try {
+            const formData = new FormData();
+            formData.append('Image', image === undefined ? restaurantSelf[0].Image : image);
+            formData.append('Type', type === undefined ? restaurantSelf[0].Type : type);
+            formData.append('Name', name === undefined ? restaurantSelf[0].Name : name);
+            formData.append('Address', address === undefined ? restaurantSelf[0].Address : address);
+            formData.append('Position', mapPicker.length === 0 ? "21.040432,105.782250" : mapPicker[0].pos.lat + "," + mapPicker[0].pos.lng);
 
-        const formData = new FormData();
-        formData.append('Image', image === undefined ? restaurantSelf[0].Image : image);
-        formData.append('Type', type === undefined ? restaurantSelf[0].Type : type);
-        formData.append('Name', name === undefined ? restaurantSelf[0].Name : name);
-        formData.append('Address', address === undefined ? restaurantSelf[0].Address : address);
-        formData.append('Position', mapPicker.length === 0 ? "21.040432,105.782250" : mapPicker[0].pos.lat + "," + mapPicker[0].pos.lng);
-
-        putAPI('/restaurant', formData, function (res) {
-            console.log(res);
-        });
+            putAPI('/restaurant', formData, function (res) {
+                if(res.status==="error"){
+                    swal("Something went wrong!!!");
+                }
+                else{
+                    swal("Success!!!");
+                }
+            });
+        } catch (e) {
+            swal("some thing when wrong!!!");
+        }
 
     }
 
@@ -135,7 +143,7 @@ export default function EditRestaurantPage() {
                         <div onClick={handleSubmitChangeRestaurantInfo} className="makeStyles-cardFooter-554">
                             <button className="MuiButtonBase-root MuiButton-root makeStyles-button-148 makeStyles-primary-151 MuiButton-text"
                                 tabIndex={0} type="button">
-                                <span className="MuiButton-label">Create Dish</span>
+                                <span className="MuiButton-label">Edit Restaurant</span>
                                 <span className="MuiTouchRipple-root" />
                             </button>
                         </div>

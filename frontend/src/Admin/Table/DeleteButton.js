@@ -1,5 +1,5 @@
 import React from 'react';
-import { deleteAPI, getAPI } from '../../Normal/shared/APICaller';
+import { deleteAPI, getAPI, getAPIWithoutUser } from '../../Normal/shared/APICaller';
 import { useAdminContext } from '../context/useAdminContext';
 import swal from 'sweetalert';
 
@@ -7,7 +7,8 @@ export default function DeleteButton(props) {
 
     const {
         updateAllUser,
-        updateAllRestaurantOwer
+        updateAllRestaurantOwer,
+        updateAllRestaurant
     } = useAdminContext();
 
     function handleDeleteUser(e) {
@@ -27,6 +28,10 @@ export default function DeleteButton(props) {
                         getAPI('/users', function (_res) {
                             updateAllUser(_res.data)
                         })
+                        getAPIWithoutUser('/pub/restaurant', function (res) {
+                            console.log(res);
+                            updateAllRestaurant(res.data.data);
+                        });
                         getAPI('/restaurant-owners', function (_res) {
                             updateAllRestaurantOwer(_res.data);
                         })

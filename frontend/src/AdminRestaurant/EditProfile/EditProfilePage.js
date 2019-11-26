@@ -6,6 +6,7 @@ import { useAdminResContext } from '../context/useAdminResContext';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { putAPI } from '../../Normal/shared/APICaller';
+import swal from 'sweetalert';
 
 const useStyles = makeStyles(theme => ({
     container: {
@@ -59,7 +60,12 @@ function EditProfilePage() {
             formData.append('Name', name);
             formData.append('Password', password);
             putAPI("/restaurant-owners", formData, function (res) {
-                console.log(res);
+                if (res.status !== "error") {
+                    swal("Success");
+                }
+                else {
+                    swal("Something went wrong!");
+                }
             });
         }
 

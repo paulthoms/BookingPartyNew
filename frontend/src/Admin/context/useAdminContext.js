@@ -1,6 +1,6 @@
 import { useContext, useEffect } from "react";
 import { AdminContext } from "./context";
-import { postAPI, getAPI } from '../../Normal/shared/APICaller';
+import { postAPI, getAPI, getAPIWithoutUser } from '../../Normal/shared/APICaller';
 
 const useAdminContext = () => {
     const [state, dispatch] = useContext(AdminContext);
@@ -19,6 +19,13 @@ const useAdminContext = () => {
                 draft.allRestaurantOwer = res.data;
             })
         })
+
+        getAPIWithoutUser('/pub/restaurant', function (res) {
+            console.log(res.data)
+            dispatch((draft) => {
+                draft.allRestaurant = res.data.data
+            })
+        });
 
     }, [])
 
@@ -50,9 +57,15 @@ const useAdminContext = () => {
         })
     }
 
-    function updateMapPicker(data){
-        dispatch((draft)=>{
+    function updateMapPicker(data) {
+        dispatch((draft) => {
             draft.mapPicker = data;
+        })
+    }
+
+    function updateAllRestaurant(data) {
+        dispatch((draft) => {
+            draft.allRestaurant = data
         })
     }
 
@@ -63,7 +76,8 @@ const useAdminContext = () => {
         updateTitleContent,
         updateAllUser,
         updateAllRestaurantOwer,
-        updateMapPicker
+        updateMapPicker,
+        updateAllRestaurant
     };
 };
 

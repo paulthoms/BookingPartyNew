@@ -8,7 +8,8 @@ import { useAdminResContext } from '../context/useAdminResContext';
 function Table(props) {
 
     const {
-        allBooking
+        allBooking,
+        loadingConfirm
     } = useAdminResContext();
 
     useEffect(() => {
@@ -24,16 +25,19 @@ function Table(props) {
                     </thead>
                     <tbody className="MuiTableBody-root">
                         {
-                            allBooking.map((item) => {
-                                console.log(item);
-                                return (
-                                    <tr className="MuiTableRow-root makeStyles-tableBodyRow-3227">
-                                        <Row cols={[item.Time, item.Member, item.Name, item.Email, item.Phone, item.Status]} type={props.type} />
-                                        <Delete api={props.apiDelete} id={item.ID} />
-                                        <ConfirmButton api={props.apiConfirm} id={item.ID} email = {item.Email} />
-                                    </tr>
-                                )
-                            })
+
+                            loadingConfirm ? <>Loading...</> :
+
+                                allBooking.map((item) => {
+                                    console.log(item);
+                                    return (
+                                        <tr className="MuiTableRow-root makeStyles-tableBodyRow-3227">
+                                            <Row cols={[item.Time, item.Member, item.Name, item.Email, item.Phone]} type={props.type} />
+                                            <ConfirmButton api={props.apiConfirm} id={item.ID} email={item.Email} status={item.Status} />
+                                            <Delete api={props.apiDelete} id={item.ID} />
+                                        </tr>
+                                    )
+                                })
                         }
                     </tbody>
                 </table>

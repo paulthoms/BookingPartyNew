@@ -144,7 +144,7 @@ router.get('/pub/restaurant', Restaurant.getRestaurant);
 router.get('/pub/restaurant/:id', Restaurant.getRestaurantID);
 router.post('/restaurant/new', checkAdmin.checkTokenAdmin, Restaurant.postRestaurant);
 router.put('/restaurant', checkRestaurantAdmin.checkTokenRestaurantAdmin, Restaurant.updateRestaurant);
-router.delete('/restaurant/:id', checkAdmin.checkTokenAdmin, Restaurant.updateRestaurant);
+router.delete('/restaurant/:id', checkAdmin.checkTokenAdmin, Restaurant.deleteRestaurant);
 //end API for restaurant table
 
 

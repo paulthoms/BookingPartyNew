@@ -45,7 +45,8 @@ export default function SelectFilter(props) {
     const [personName, setPersonName] = React.useState([]);
     const {
         allRestaurant,
-        updateTypeRestaurantFilter
+        updateTypeRestaurantFilter,
+        updateRestaurantFilter
     } = useAppContext();
 
     useEffect(() => {
@@ -54,6 +55,7 @@ export default function SelectFilter(props) {
 
     const handleChange = event => {
         console.log(event.target.value)
+        updateRestaurantFilter(allRestaurant);
         updateTypeRestaurantFilter(event.target.value);
         setPersonName(event.target.value);
     };

@@ -4,6 +4,7 @@ import Card from '../../Normal/component/Card/Card';
 import { TextField } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { postAPI, putAPI } from '../../Normal/shared/APICaller';
+import swal from 'sweetalert';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,16 +43,25 @@ export default function EditDish() {
 
     function handleOnSubmit(e) {
 
-        const formData = new FormData();
-        formData.append('Image', file);
-        formData.append('Name', name === undefined ? dataEditDish[0].Name : name);
-        formData.append('Description',description === undefined ? dataEditDish[0].Description : description);
-        formData.append('Cost', cost === undefined ? dataEditDish[0].Cost : cost);
-        console.log(file);
+        try {
+            const formData = new FormData();
+            formData.append('Image', file);
+            formData.append('Name', name === undefined ? dataEditDish[0].Name : name);
+            formData.append('Description', description === undefined ? dataEditDish[0].Description : description);
+            formData.append('Cost', cost === undefined ? dataEditDish[0].Cost : cost);
+            console.log(file);
 
-        putAPI("/dish/" + dataEditDish[0].ID, formData, function (_res) {
-            console.log(_res);
-        });
+            putAPI("/dish/" + dataEditDish[0].ID, formData, function (_res) {
+                if (_res.status === "error") {
+                    swal("something went wrong!!!");
+                }
+                else{
+                    swal("Success!!!");
+                }
+            });
+        } catch (e) {
+            swal("something went wrong!!!");
+        }
 
         // console.log();
 

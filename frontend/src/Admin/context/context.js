@@ -6,6 +6,7 @@ import CreateRestaurantOwnerPage from "../Create/OwnerRestaurant/CreateRestauran
 import CreateRestaurantPage from "../Create/Restaurant/CreateRestaurant";
 import EditProfilePage from "../EditProfile/EditProfilePage";
 import RestaurantGroup from '../Create/RestaurantGroup';
+import Restaurant from "../Restaurant/Restaurant";
 
 
 const defaultState = {
@@ -19,6 +20,11 @@ const defaultState = {
             id: "rso",
             title: "Restaurant Owner",
             component: RestaurantOwnerPage
+        },
+        {
+            id: "restaurant",
+            title: "Restaurant",
+            component: Restaurant
         },
         {
             id: "crtrso",
@@ -43,6 +49,7 @@ const defaultState = {
     allUser: [],
     allRestaurantOwer: [],
     mapPicker: [],
+    allRestaurant: []
 };
 
 const AdminContext = React.createContext();

@@ -50,7 +50,8 @@ const defaultState = {
     restaurantSelf: [],
     mapPicker: [],
     dataEditDish: [],
-    dataEditProfile: []
+    dataEditProfile: [],
+    loadingConfirm: false
 };
 
 const AdminResContext = React.createContext();
