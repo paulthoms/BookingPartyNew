@@ -75,6 +75,9 @@ export default function FormDialog() {
             if (res.data.status == "error") {
                 swal("something went wrong! Email or UserName existed");
             }
+            else{
+                swal("please check your email to confirm !!!");
+            }
         })
 
 

@@ -86,6 +86,7 @@ export default function Search() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
     const [search, setSearch] = useState();
+    const [searchTmp, setSearchTmp] = useState([]);
 
     const {
         searchResult,
@@ -94,45 +95,98 @@ export default function Search() {
     } = useAppContext();
 
     function handleChangeInput(e) {
-        console.log(e.target.value.split(' '));
-        setSearch(e.target.value.split(' '));
 
+        setSearchTmp([]);
+        console.log(e.target.value.length);
+
+        if (e.target.value.length) {
+
+            var tmpSearch = [];
+            for (let i in allRestaurant) {
+                if (allRestaurant[i].Name.toLowerCase().includes(e.target.value)) {
+                    console.log(allRestaurant[i]);
+                    tmpSearch.push(allRestaurant[i]);
+                }
+            }
+            setSearchTmp(tmpSearch);
+
+            console.log(e.target.value.split(' '));
+            setSearch(e.target.value);
+        }
     }
 
     function handleSearch(e) {
+
+        // if (e.target.value != undefined) {
+        console.log(search);
+
         var resultRestaurant = [];
         for (let i in allRestaurant) {
-            console.log(checkExist(search, allRestaurant[i].Name));
-            if (checkExist(search, allRestaurant[i].Name.split(' ')[0]) !== -1) {
+            if (allRestaurant[i].Name.toLowerCase().includes(search)) {
                 resultRestaurant.push(allRestaurant[i]);
             }
         }
         updateSearchResult(resultRestaurant);
+        // }
+
+
+    }
+
+    function handleBlurInput(e) {
+        setTimeout(() => {
+            setSearchTmp([]);
+        }, 1000);
     }
 
     return (
-        <div className="filter__group" >
-            <div className="filter__search" >
-                <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                        <Icon>search</Icon>
+        <>
+            <div className="filter__group" >
+                <div className="filter__search" >
+                    <div className={classes.search}>
+                        <div className={classes.searchIcon}>
+                            <Icon>search</Icon>
+                        </div>
+                        <InputBase
+                            placeholder="Search…"
+                            classes={{
+                                root: classes.inputRoot,
+                                input: classes.inputInput,
+                            }}
+                            inputProps={{ 'aria-label': 'search' }}
+                            onChange={handleChangeInput}
+                            onBlur={handleBlurInput}
+                        />
                     </div>
-                    <InputBase
-                        placeholder="Search…"
-                        classes={{
-                            root: classes.inputRoot,
-                            input: classes.inputInput,
-                        }}
-                        inputProps={{ 'aria-label': 'search' }}
-                        onChange={handleChangeInput}
-                    />
                 </div>
+                <Link to={'/search'}>
+                    <Button onClick={handleSearch} variant="contained" color="primary">
+                        Search
+                    </Button>
+                </Link>
             </div>
-            <Link to={'/search'}>
-                <Button onClick={handleSearch} variant="contained" color="primary">
-                    Search
-                </Button>
-            </Link>
-        </div>
+            {console.log(searchTmp)}
+            <div className="search__result-temp" >
+                {
+                    searchTmp.length < 1 ? <></> :
+                        searchTmp.map((item) => {
+                            return (
+                                <Link to={"/about/restaurant/" + item.ID}>
+                                    <div className="search__result-single" >
+                                        <img className="search__result-image" src={`/uploads/${item.Image}`} />
+                                        <div className="search__result-single-group" >
+                                            <div className="search__result-single-restaurantname" >
+                                                {item.Name}
+                                            </div>
+                                            <div className="search__result-single-restaurantaddr" >
+                                                {item.Address}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </Link>
+                            );
+                        })
+                }
+            </div>
+        </>
     )
 }

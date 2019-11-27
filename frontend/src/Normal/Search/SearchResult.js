@@ -11,7 +11,7 @@ export default function SearchResult() {
 
 
     return (
-        <div style={{ display: "flex" }} >
+        <div style={{ display: "flex", flexWrap: "wrap" }} >
             {console.log("hello")}
             {
                 searchResult.map((item) => {

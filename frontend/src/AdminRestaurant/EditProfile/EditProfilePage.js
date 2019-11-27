@@ -68,6 +68,9 @@ function EditProfilePage() {
                 }
             });
         }
+        else{
+            swal("please fill all input!!!");
+        }
 
     }
 

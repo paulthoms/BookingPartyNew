@@ -1633,3 +1633,26 @@ button[disabled]{
   background-color: #cccccc;
   color: #666666;
 }
+
+/* style for search tmp */
+
+.search__result-single {
+    height: 60px;
+    display: flex;
+}
+
+img.search__result-image {
+    height: 100%;
+    width: 80px;
+}
+
+.search__result-temp {
+    position: absolute;
+    top: 147px;
+    left: 72px;
+    background: white;
+    z-index: 100;
+    width: 80%;
+}
+
+/* end style for search tmp */
