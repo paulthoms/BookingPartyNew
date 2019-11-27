@@ -38,6 +38,7 @@ function Restaurant(MysqlDB, jwt, CryptoJS) {
                     Type: req.body.Type,
                     Address: req.body.Address,
                     Image: nameImg,
+                    Phone: req.body.Phone,
                     Position: req.body.Position
                 }
 
@@ -74,7 +75,8 @@ function Restaurant(MysqlDB, jwt, CryptoJS) {
                     Type: req.body.Type,
                     Address: req.body.Address,
                     Image: nameImg,
-                    Position: req.body.Position
+                    Position: req.body.Position,
+                    Phone: req.body.Phone
                 };
 
                 var id = req.restaurantID

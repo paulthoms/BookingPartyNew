@@ -108,7 +108,7 @@ function BookingDAO(MysqlDB) {
     }
 
     this.getBookingRestaurantModel = function (Booking, callback) {
-        var sql = 'SELECT Booking.ID,Booking.Time, Booking.Status, Booking.Member,Users.Email, Users.Name,Users.Phone FROM mydb.Booking inner join Users on Booking.Users_ID = Users.ID where Booking.Restaurant_ID = ?';
+        var sql = 'SELECT Booking.ID,Booking.Time, Booking.Status, Booking.Member,Users.Email, Users.Name,Users.Phone,Booking.Description FROM mydb.Booking inner join Users on Booking.Users_ID = Users.ID where Booking.Restaurant_ID = ?';
         MysqlDB.query(sql, Booking.restaurantID, function (error, result) {
             if (error) {
                 callback({

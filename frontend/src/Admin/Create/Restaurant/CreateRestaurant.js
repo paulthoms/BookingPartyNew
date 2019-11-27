@@ -34,6 +34,7 @@ function CreateDish() {
     const [name, setName] = useState("");
     const [address, setAddress] = useState("");
     const [type, setType] = useState();
+    const [phone, setPhone] = useState();
 
     const {
         mapPicker
@@ -62,6 +63,7 @@ function CreateDish() {
             formData.append('Type', type);
             console.log(file);
             formData.append('Position', mapPicker[0].pos.lat + ',' + mapPicker[0].pos.lng);
+            formData.append('Phone', phone);
 
             postAPI("/restaurant/new", formData, function (_res) {
                 if (_res.data.status !== "error") {
@@ -89,6 +91,10 @@ function CreateDish() {
 
     function handleOnChangeAddress(e) {
         setAddress(e.target.value);
+    }
+
+    function handleOnChangePhone(e) {
+        setPhone(e.target.value);
     }
 
 
@@ -139,6 +145,16 @@ function CreateDish() {
                                 margin="normal"
                                 variant="outlined"
                                 onChange={handleOnChangeAddress}
+                            />
+                            <TextField
+                                id="outlined-password-input"
+                                label="Phone"
+                                className={classes.textField}
+                                type="text"
+                                autoComplete="current-password"
+                                margin="normal"
+                                variant="outlined"
+                                onChange={handleOnChangePhone}
                             />
                             <MapPickPosition />
                         </div>

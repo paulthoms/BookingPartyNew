@@ -4,7 +4,7 @@ import Table from '../Table/TableBooking';
 import variables from '../context/variables';
 import { useAdminResContext } from '../context/useAdminResContext';
 
-const headTable = ["Time", "Member", "UserName", "Email", "Phone", "Status"]
+const headTable = ["Time", "Member", "UserName", "Email", "Phone", "Description", "Status"]
 
 function BookingPage() {
 

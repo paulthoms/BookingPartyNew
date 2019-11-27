@@ -189,6 +189,13 @@ router.delete('/restaurant-owners/:id', checkAdmin.checkTokenAdmin, RestaurantOw
 // end API for restaurant owner
 
 
+// API reset password
+
+router.post('/pub/reset-password', User.resetUserPassword);
+
+// end API reset password
+
+
 router.post('/testUpload', function (req, res, next) {
   console.log(req.headers)
   if (req.files === null) {

@@ -177,7 +177,9 @@ export default function AboutRestaurant(props) {
                                 </div>
 
                                 <div class="deltail-restaurant__container-booking__element">
-                                    Hoặc gọi tới  để đặt chỗ và được tư vấn
+                                    {
+                                        loading?<></>:<>Hoặc gọi tới {restaurant.Phone} để đặt chỗ và được tư vấn</>
+                                    }
                                 </div>
                             </div>
 

@@ -41,8 +41,8 @@ function RestaurantDAO(MysqlDB) {
 
     this.postRestaurantModel = function (restaurant, callback) {
         console.log(restaurant);
-        var sql = "insert into Restaurant (Name, Type, Address, Image,PositionMap) values (?,?,?,?,?)";
-        MysqlDB.query(sql, [restaurant.Name, restaurant.Type, restaurant.Address, restaurant.Image, restaurant.Position], function (error, results) {
+        var sql = "insert into Restaurant (Name, Type, Address, Image,PositionMap,Phone) values (?,?,?,?,?,?)";
+        MysqlDB.query(sql, [restaurant.Name, restaurant.Type, restaurant.Address, restaurant.Image, restaurant.Position, restaurant.Phone], function (error, results) {
             if (error) {
                 callback({
                     "status": "error",
@@ -59,8 +59,8 @@ function RestaurantDAO(MysqlDB) {
     }
 
     this.updateRestaurantModel = function (id, restaurant, callback) {
-        var sql = "UPDATE Restaurant SET Name = ?, Type = ?, Address = ?, Image = ?, PositionMap = ? WHERE ID = ?";
-        MysqlDB.query(sql, [restaurant.Name, restaurant.Type, restaurant.Address, restaurant.Image, restaurant.Position, id], function (error, results) {
+        var sql = "UPDATE Restaurant SET Name = ?, Type = ?, Address = ?, Image = ?, PositionMap = ?,Phone = ? WHERE ID = ?";
+        MysqlDB.query(sql, [restaurant.Name, restaurant.Type, restaurant.Address, restaurant.Image, restaurant.Position, restaurant.Phone, id], function (error, results) {
             if (error) {
                 callback({
                     "status": "error",

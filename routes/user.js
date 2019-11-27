@@ -1,6 +1,7 @@
 
 var UserDAO = require('../models/user').UserDAO;
 var sendMail = require('./sendMail');
+var resetPasswordMail = require('./resetPasswordMail');
 
 
 function User(MysqlDB, jwt, CryptoJS) {
@@ -62,7 +63,7 @@ function User(MysqlDB, jwt, CryptoJS) {
             Password: ciphertext.toString(),
             ID: req.user.user.ID
         }
-        console.log("update function",req.user);
+        console.log("update function", req.user);
 
 
 
@@ -70,6 +71,20 @@ function User(MysqlDB, jwt, CryptoJS) {
             res.send(result);
         });
 
+    }
+
+    this.resetUserPassword = function (req, res, next) {
+        var email = req.body.email;
+        console.log(email);
+        var passwordTmp = Math.floor(Math.random() * (999999 - 100000 + 1)) + 999999;
+        console.log(passwordTmp);
+        var ciphertext = CryptoJS.AES.encrypt(passwordTmp.toString(), 'secretKey');
+        UserModel.resetUserPasswordModel(email, ciphertext.toString(), function (result) {
+            if (result.status == "ok") {
+                resetPasswordMail(email, passwordTmp, result.userName);
+            }
+            res.json(result);
+        })
     }
 
     this.deleteUser = function (req, res, next) {
@@ -88,6 +103,9 @@ function User(MysqlDB, jwt, CryptoJS) {
             else {
                 console.log(authData);
                 UserModel.checkEmail(authData, function (result) {
+                    if (result.status == "ok") {
+                        sendMail()
+                    }
                     res.send(result);
                 });
             }

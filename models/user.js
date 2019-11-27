@@ -106,7 +106,7 @@ function UserDAO(MysqlDB) {
                 }
                 else {
                     var sql = "UPDATE Users SET checkMail = ? WHERE Email = ?";
-                    MysqlDB.query(sql, [1,user.user.Email], function (error, results) {
+                    MysqlDB.query(sql, [1, user.user.Email], function (error, results) {
                         if (error) {
                             callback({
                                 "status": "error",
@@ -124,6 +124,43 @@ function UserDAO(MysqlDB) {
             }
         });
 
+    }
+
+    this.resetUserPasswordModel = function (email, passtmp, callback) {
+        var sql = "select * from Users where Email = ?";
+        MysqlDB.query(sql, email, function (error, results) {
+            if (error) {
+                callback({
+                    "status": "error",
+                    "code": "400"
+                })
+            }
+            else {
+
+                var sql = "UPDATE `mydb`.`Users` SET `Password`=? WHERE `ID`=?";
+                // callback({
+                //     "status": "ok",
+                //     "result": results[0]
+                // })
+                MysqlDB.query(sql, [passtmp, results[0].ID], function (error, result) {
+                    if (error) {
+                        callback({
+                            "status": "error",
+                            "code": "400",
+                            "error": error
+                        })
+                    }
+                    else {
+                        callback({
+                            "status": "ok",
+                            "result": result[0],
+                            "userName": results[0].Name
+                        })
+                    }
+                })
+
+            }
+        })
     }
 
 

@@ -32,7 +32,7 @@ function Table(props) {
                                     console.log(item);
                                     return (
                                         <tr className="MuiTableRow-root makeStyles-tableBodyRow-3227">
-                                            <Row cols={[item.Time, item.Member, item.Name, item.Email, item.Phone]} type={props.type} />
+                                            <Row cols={[item.Time, item.Member, item.Name, item.Email, item.Phone, item.Description]} type={props.type} />
                                             <ConfirmButton api={props.apiConfirm} id={item.ID} email={item.Email} status={item.Status} />
                                             <Delete api={props.apiDelete} id={item.ID} />
                                         </tr>

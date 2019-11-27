@@ -30,6 +30,7 @@ export default function EditRestaurantPage() {
     const [name, setName] = useState();
     const [type, setType] = useState();
     const [address, setAddress] = useState();
+    const [phone, setPhone] = useState();
     const [image, setImage] = useState('');
 
 
@@ -45,13 +46,14 @@ export default function EditRestaurantPage() {
             formData.append('Type', type === undefined ? restaurantSelf[0].Type : type);
             formData.append('Name', name === undefined ? restaurantSelf[0].Name : name);
             formData.append('Address', address === undefined ? restaurantSelf[0].Address : address);
+            formData.append('Phone', phone === undefined ? restaurantSelf[0].Phone : phone);
             formData.append('Position', mapPicker.length === 0 ? "21.040432,105.782250" : mapPicker[0].pos.lat + "," + mapPicker[0].pos.lng);
 
             putAPI('/restaurant', formData, function (res) {
-                if(res.status==="error"){
+                if (res.status === "error") {
                     swal("Something went wrong!!!");
                 }
-                else{
+                else {
                     swal("Success!!!");
                 }
             });
@@ -77,6 +79,10 @@ export default function EditRestaurantPage() {
     function handleChangeImage(e) {
         console.log(e.target.files);
         setImage(e.target.files[0]);
+    }
+
+    function handleChangePhone(e) {
+        setPhone(e.target.value);
     }
 
 
@@ -123,6 +129,18 @@ export default function EditRestaurantPage() {
                                     variant="outlined"
                                     value={address === undefined ? restaurantSelf[0].Address : address}
                                     onChange={handleChangeAddress}
+                                />
+
+                                <TextField
+                                    id="outlined-password-input"
+                                    label="Phone"
+                                    className={classes.textField}
+                                    type="text"
+                                    autoComplete="current-password"
+                                    margin="normal"
+                                    variant="outlined"
+                                    value={phone === undefined ? restaurantSelf[0].Phone : phone}
+                                    onChange={handleChangePhone}
                                 />
 
                                 <TextField

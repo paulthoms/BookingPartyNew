@@ -12,6 +12,7 @@ import AdminResLogin from '../AdminRestaurant/Login/Login';
 import ProfileUser from '../User/ProfileUser';
 import Edit from "../User/Edit";
 import Search from '../Normal/Search/SearchResult';
+import ForgotPassword from "../User/Register/ForgotPassword";
 
 
 const defaultState = {
@@ -75,6 +76,12 @@ const defaultState = {
             url: "/admin",
             component: Admin,
             layout: "admin"
+        },
+        {
+            id: "forgotPass",
+            url: "/forgot-pass",
+            component: ForgotPassword,
+            layout: "forgot-pass"
         },
         {
             id: "adminrestaurant",
@@ -145,6 +152,10 @@ const defaultState = {
             title: "Register",
             url: "/register",
         },
+        {
+            id: "forgotpass",
+            url: "/forget-pass"
+        }
     ]
     ,
     isLogin: false,

@@ -7,21 +7,21 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Icon from '@material-ui/core/Icon';
+import { Typography } from '@material-ui/core';
 import { Link } from 'react-router-dom'
-import ForgotPassword from '../Register/ForgotPassword';
 
-import { login, userLogin } from '../../Normal/shared/APICaller';
+import { login, userLogin, getAPI, postAPI, postAPIWithoutToken } from '../../Normal/shared/APICaller';
 import { useAppContext } from "../../contextApp/useContextApp";
 import swal from 'sweetalert';
 import { ChangeNav } from '../../Normal/shared/ChangeNav';
 
 const jwt = require('jsonwebtoken');
 
-export default function FormDialog() {
-    const [open, setOpen] = React.useState(false);
+export default function FormDialog(props) {
+    const [open, setOpen] = React.useState(props.open);
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
-    const [isOpenForgot, setIsOpenForgot] = useState(false);
+    const [email, setEmail] = useState("");
 
     const {
         NavigationConfig,
@@ -37,6 +37,7 @@ export default function FormDialog() {
 
     const handleClose = () => {
         setOpen(false);
+        props.setOpen(false);
     };
 
     function handleLogin() {
@@ -73,53 +74,55 @@ export default function FormDialog() {
         setPassword(e.target.value);
     }
 
-    function handleChangeToForgot(e) {
-        setOpen(false);
-        setIsOpenForgot(true);
+    function handleForgotPassword(e) {
+        console.log(email);
+        console.log("get pass on email!!!");
+        var formData = new FormData();
+        formData.append('email', email);
+        postAPIWithoutToken('/pub/reset-password', formData, function (res) {
+            console.log(res);
+            if (res.data.status == "ok") {
+                swal("please check your email to get new password!");
+            }
+            else {
+                swal("something went wrong!!!");
+            }
+        });
+    }
+
+    function handleChangeEmail(e) {
+        setEmail(e.target.value);
     }
 
     return (
         <div>
-            <Button variant="outlined" color="primary" onClick={handleClickOpen}>
+            {/* <Button variant="outlined" color="primary" onClick={handleClickOpen}>
                 Login
-            </Button>
-            <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">Login</DialogTitle>
+            </Button> */}
+            <Dialog open={props.open} onClose={handleClose} aria-labelledby="form-dialog-title">
+                <DialogTitle id="form-dialog-title">Forgot Password</DialogTitle>
+                <Typography style={{ marginLeft: "10px" }} >Please put your email</Typography>
                 <DialogContent>
                     <TextField
                         autoFocus
                         margin="dense"
                         id="name"
-                        label="UserName"
+                        label="Email"
                         type="name"
                         fullWidth
                         variant="outlined"
-                        onChange={handleChangeUserName}
-                    />
-                    <TextField
-                        autoFocus
-                        margin="dense"
-                        id="password"
-                        label="Password"
-                        type="password"
-                        fullWidth
-                        variant="outlined"
-                        onChange={handleChangePassword}
+                        onChange={handleChangeEmail}
                     />
                 </DialogContent>
                 <DialogActions>
-                    <Button onClick={handleChangeToForgot} color="primary">
-                        Forgot password
-                    </Button>
                     <Button onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button onClick={handleLogin} color="primary">
-                        Login
+                    <Button onClick={handleForgotPassword} color="primary">
+                        Forgot password
                     </Button>
                 </DialogActions>
             </Dialog>
-            <ForgotPassword open={isOpenForgot} setOpen={setIsOpenForgot} />
         </div>
     );
 }

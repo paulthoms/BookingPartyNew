@@ -3,7 +3,7 @@ import './App.css';
 import './all.js';
 import { Route, Switch } from 'react-router-dom';
 import Navigation from './routes';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router,Redirect } from 'react-router-dom';
 import { useAppContext } from "./contextApp/useContextApp";
 import NormalPage from "./Normal/NormalPage";
 import Admin from "./Admin/Admin";
@@ -37,6 +37,7 @@ function App() {
               return <Route path={item.url} component={item.component} />
             })
           }
+           <Redirect to='/home'  />
         </Switch>
         {window.location.href.toString().split('/')[3].includes("admin") == false && <Footer />}
 

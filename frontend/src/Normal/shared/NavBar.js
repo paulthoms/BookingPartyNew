@@ -19,6 +19,7 @@ export default function NavBar() {
     }, [])
 
     function handleOnclickLogout() {
+        window.location.href = 'home';
         localStorage.clear();
         updateNavBar(ChangeNav(localStorage.getItem("user-role")));
     }

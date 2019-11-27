@@ -8,6 +8,7 @@ var pathURL = [
     "pub/restaurant",
     "pub/dish/",
     "pub/feedback",
+    "pub/reset-password",
     "testUpload",
 ];
 
