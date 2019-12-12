@@ -33,3 +33,5 @@ Tài khoản AdminRestaurant: - HITC -- 123456
 Tài khoản User để booking: - PhucTran -- 123456
 
 Lưu ý: Mật khẩu mà không đúng thì đăng nhập lại với mật khẩu là 1234567 nhé.
+
+Đường link web: https://pure-thicket-80613.herokuapp.com
